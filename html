@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Android CMD</title>
+    <style>
+        body { background-color: black; color: #00FF00; font-family: monospace; padding: 20px; }
+        #output { white-space: pre-wrap; margin-bottom: 10px; }
+        input { background: transparent; border: none; color: #00FF00; outline: none; width: 80%; font-family: monospace; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div id="output">Microsoft Windows [Version 10.0.2026]
+(c) Corporation. Todos os direitos reservados.
+
+Digite "shutdown" para desligar ou "help".</div>
+    <span>C:\Users\Android></span><input type="text" id="command" autofocus>
+
+    <script>
+        const input = document.getElementById('command');
+        const output = document.getElementById('output');
+
+        input.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = input.value.toLowerCase();
+                output.innerHTML += `\nC:\\Users\\Android>${cmd}`;
+                
+                if (cmd === 'shutdown') {
+                    output.innerHTML += "\nERRO: Acesso negado. O Android exige ROOT para desligar via comando.";
+                    alert("Erro de Sistema: Permissão de Administrador necessária para desligar.");
+                } else if (cmd === 'dir') {
+                    output.innerHTML += "\n Arquivos no diretório:\n05/01/2026  16:37    <DIR>          Downloads\n05/01/2026  16:37    <DIR>          DCIM";
+                } else if (cmd === 'cls') {
+                    output.innerHTML = "Microsoft Windows [Version 10.0.2026]";
+                } else if (cmd === 'help') {
+                    output.innerHTML += "\nComandos disponíveis: DIR, CLS, SHUTDOWN, ECHO, VER";
+                } else {
+                    output.innerHTML += `\n'${cmd}' não é reconhecido como um comando interno.`;
+                }
+                
+                input.value = '';
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        });
+    </script>
+</body>
+</html>
